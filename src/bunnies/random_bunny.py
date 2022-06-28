@@ -8,5 +8,5 @@ class RandomBunny(Bunny):
         super().__init__()
 
     
-    def binarize(self, parameter):
+    def binarize(self, parameter) -> torch.Tensor:
         return torch.randint(low=0, high=15, size=parameter.size())
