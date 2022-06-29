@@ -24,13 +24,13 @@ class Bunny(ABC):
                 layer.weight.data = self.binarize(layer.weight.data)
             except:
                 if verbose:
-                    print(f"Cannot binarize layer {type(layer)}")
+                    print(f"Cannot binarize .weight of layer {type(layer)}")
 
             try:
                 layer.bias.data = self.binarize(layer.bias.data)
             except:
                 if verbose:
-                    print(f"Cannot binarize layer {type(layer)}")
+                    print(f"Cannot binarize .bias of layer {type(layer)}")
 
             list_model[idx] = layer.type(torch.int8)
 
