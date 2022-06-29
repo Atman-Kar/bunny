@@ -18,7 +18,7 @@ class HardSignBunny(Bunny):
     def __init__(self):
         super().__init__()
 
-    def binarize(self, parameter) -> torch.Tensor:
+    def binarize(self, parameter):
         """
         Apply the signum function to input parameters
 
