@@ -4,31 +4,33 @@ from abc import ABC, abstractclassmethod
 
 
 class Bunny(ABC):
-    '''
+    """
     Abstract class for the bunnies
-    '''
+    """
 
     @abstractclassmethod
-    def binarize(self, parameter):
-        '''
+    def binarize(self, parameter) -> torch.Tensor:
+        """
         binarize input parameters
-        '''
+        """
         pass
 
+    def swap_layers(self, model, *args, **kwargs) -> nn.Module:
 
-    def swap_layers(self, model, *args, **kwargs):
-        
+        verbose = kwargs.get("verbose", False)
         list_model = list(model.children())
         for idx, layer in enumerate(list_model):
             try:
                 layer.weight.data = self.binarize(layer.weight.data)
             except:
-                print(f"Cannot binarize")
+                if verbose:
+                    print(f"Cannot binarize .weight of layer {type(layer)}")
 
             try:
                 layer.bias.data = self.binarize(layer.bias.data)
             except:
-                print(f"Cannot binarize")
+                if verbose:
+                    print(f"Cannot binarize .bias of layer {type(layer)}")
 
             list_model[idx] = layer.type(torch.int8)
 
